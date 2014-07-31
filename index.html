@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<div class="posts">
+  {% for post in paginator.posts %}
+    <article class="post">
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+      <div class="entry">
+        {{ post.content | truncatewords:40}}
+      </div>
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
+  {% endfor %}
+  <div>
+    {{paginator.page}} of {{paginator.total_pages}} 
+  </div>
+  <!--Before Current Page -->
+  {% for i in (1..5) %}
+    {% if ((paginator.page | minus : 5 ) | plus i) > 0 %}
+        <a href="{{ site.baseurl }}/page{{paginator.page | minus : 5 ) | plus i)}}">
+        {{paginator.page | minus : 5 ) | plus i)}}
+        </a>
+    {% endif %}
+  {% endfor %}
+  <!--Current Page -->
+  <a>{{paginator.page}}</a>
+  <!--After Current Page-->
+  {% for i in (1..5) %}
+    {% if ((i | plus : paginator.page) < (paginator.total_pages | plus : 1) %}
+        <a href="{{ site.baseurl }}/page{{(i | plus : paginator.page)}}">
+        {{(i | plus : paginator.page)}}
+        </a>
+    {% endif %}
+  {% endfor %}
+  <br />
+  <a href="{{paginator.previous_page_path}}"> &lt; Previous Page </a> | <a href="{{paginator.next_page_path}}"> Next Page &gt; </a>
+</div>
